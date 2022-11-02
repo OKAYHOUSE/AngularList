@@ -1,0 +1,41 @@
+<style>
+  :host {
+    font-family: Open Sans;
+    font-weight: 300;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  }
+</style>
+<body>
+  <div>
+    <h3>ToDo List</h3>
+
+    <p *ngFor="let task of searchedArray; let i = index">
+      <button
+        class="completeButton"
+        *ngIf="!task.completed"
+        (click)="completeTask(i)"
+      >
+        Complete
+      </button>
+
+      <s class="strikeThrough" *ngIf="task.completed; else notDone">
+        Task: {{ task.task }}
+      </s>
+      <ng-template #notDone> Task: {{ task.task }} </ng-template>
+      
+      <button class="remove" (click)="removeTask(i)">X</button>
+    </p>
+
+    <p id="addTodoButton">
+      <input
+        class="inputBar"
+        placeholder="Add your to-do"
+        name="task"
+        type="text"
+        [(ngModel)]="newTask.task"
+      />
+      <br />
+      <button class="addTodoButton" (click)="addTodo()">Add</button>
+    </p>
+  </div>
+</body>
